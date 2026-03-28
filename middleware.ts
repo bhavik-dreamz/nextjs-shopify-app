@@ -13,6 +13,12 @@ import {
 } from "@/lib/shopify/guards";
 
 export function middleware(request: NextRequest) {
+  // Never guard API-like paths under /shopify; these may be called by Shopify
+  // servers and do not include embedded iframe query params.
+  if (request.nextUrl.pathname.startsWith("/shopify/api/")) {
+    return NextResponse.next();
+  }
+
   const shop = request.nextUrl.searchParams.get("shop");
   const host = request.nextUrl.searchParams.get("host");
 
