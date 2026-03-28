@@ -1,20 +1,18 @@
-# Shopify app config for CLI (`shopify app dev`, `shopify app deploy`).
-# First time: run `shopify app config link` (or `shopify app dev`) to set `client_id` and sync Partner Dashboard.
-# URLs below are placeholders; with `automatically_update_urls_on_dev`, CLI can rewrite them when tunneling.
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-name = "nextjs-shopify-app"
-handle = "nextjs-shopify-app"
-client_id = "00000000000000000000000000000000"
-application_url = "https://example.com/shopify/app"
+client_id = "497a04f52dfe9d00f3517733d3ac49a1"
+name = "Next-app"
+application_url = "https://nextjs-shopify-app-dun.vercel.app/shopify"
 embedded = true
 
-[build]
-automatically_update_urls_on_dev = true
+[webhooks]
+api_version = "2026-01"
 
 [access_scopes]
-scopes = "read_products,write_products"
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+optional_scopes = [ ]
+use_legacy_install_flow = false
 
 [auth]
-redirect_urls = [
-  "https://example.com/api/shopify/auth/callback",
-]
+redirect_urls = [ "https://nextjs-shopify-app-dun.vercel.app/shopify/api/shopify/auth/callback" ]

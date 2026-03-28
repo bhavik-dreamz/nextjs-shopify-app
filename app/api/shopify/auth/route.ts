@@ -12,7 +12,7 @@ export async function GET(request: Request) {
 
   return shopify.auth.begin({
     shop,
-    callbackPath: "/api/shopify/auth/callback",
+    callbackPath: "/shopify/api/shopify/auth/callback",
     isOnline: false,
     rawRequest: request,
   });
