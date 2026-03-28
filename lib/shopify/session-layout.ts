@@ -24,7 +24,12 @@ export async function requireShopifyEmbeddedSession() {
   const sessions = await shopifySessionStorage.findSessionsByShop(shop);
   const offline = sessions.find((s: any) => !s.isOnline && s.accessToken);
   if (!offline) {
-    redirect(`/api/shopify/auth?shop=${encodeURIComponent(shop)}`);
+    // Redirect via the exit-iframe route so OAuth starts at the top-level
+    // frame, not inside the Shopify Admin iframe. This is required because
+    // browsers block third-party cookies set inside iframes (SameSite), which
+    // would cause `auth.begin()` state cookies to be dropped and make the
+    // callback fail with "Could not find an OAuth cookie".
+    redirect(`/api/shopify/auth/exit-iframe?shop=${encodeURIComponent(shop)}`);
   }
 
   return { shop, host };
