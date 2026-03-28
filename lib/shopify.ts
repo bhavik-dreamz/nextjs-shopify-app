@@ -3,6 +3,7 @@ import "@shopify/shopify-api/adapters/web-api";
 import { shopifyApi, ApiVersion } from "@shopify/shopify-api";
 import type { Shopify } from "@shopify/shopify-api";
 import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memory";
+import PrismaSessionStorage from "./shopify/session-storage-prisma";
 
 const globalForShopify = globalThis as typeof globalThis & {
   shopifySessionStorage?: MemorySessionStorage;
@@ -10,7 +11,10 @@ const globalForShopify = globalThis as typeof globalThis & {
 };
 
 export const shopifySessionStorage =
-  globalForShopify.shopifySessionStorage ?? new MemorySessionStorage();
+  globalForShopify.shopifySessionStorage ??
+  (process.env.SESSION_STORAGE === "memory"
+    ? new MemorySessionStorage()
+    : new PrismaSessionStorage());
 if (process.env.NODE_ENV !== "production") {
   globalForShopify.shopifySessionStorage = shopifySessionStorage;
 }

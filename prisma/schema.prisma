@@ -1,0 +1,21 @@
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ShopifySession {
+  id          String   @id @map("id")
+  shop        String?  @map("shop")
+  isOnline    Boolean? @map("is_online")
+  expiresAt   DateTime? @map("expires_at")
+  scope       String?  @map("scope")
+  sessionData Json     @map("session_data")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("shopify_sessions")
+}
