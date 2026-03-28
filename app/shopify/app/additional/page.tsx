@@ -1,25 +1,13 @@
 "use client";
 
-import { Card, Page, Layout, Text, BlockStack } from "@shopify/polaris";
-
 export default function AdditionalPage() {
   return (
-    <Page title="Additional page">
-      <Layout>
-        <Layout.Section>
-          <Card>
-            <BlockStack gap="300">
-              <Text as="h2" variant="headingMd">
-                Additional page
-              </Text>
-              <Text as="p" variant="bodyMd">
-                This is an additional page in your embedded Shopify app — add
-                your content here.
-              </Text>
-            </BlockStack>
-          </Card>
-        </Layout.Section>
-      </Layout>
-    </Page>
+    <div className="mx-auto max-w-3xl p-8">
+      <h1 className="mb-3 text-2xl font-semibold text-zinc-900">Additional page</h1>
+      <p className="text-sm text-zinc-600">
+        This is an additional page in your embedded Shopify app. Add your
+        content here.
+      </p>
+    </div>
   );
 }
