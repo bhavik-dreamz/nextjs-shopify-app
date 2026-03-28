@@ -23,7 +23,8 @@
     "typescript"
   ],
   "scripts": {
-    "dev": "next dev",
+    "predev": "npx prisma generate",
+    "dev": "npx prisma migrate deploy && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
