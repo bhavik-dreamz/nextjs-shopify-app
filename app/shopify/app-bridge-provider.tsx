@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { NavMenu } from "@shopify/app-bridge-react";
 
 /**
@@ -18,10 +17,10 @@ export function AppBridgeProvider({
   return (
     <>
       <NavMenu>
-        <Link href="/shopify/app" rel="home">
+        <a href="/shopify/app" rel="home">
           Home
-        </Link>
-        <Link href="/shopify/app/additional">Additional page</Link>
+        </a>
+        <a href="/shopify/app/additional">Additional page</a>
       </NavMenu>
       {children}
     </>

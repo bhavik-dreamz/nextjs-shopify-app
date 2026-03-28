@@ -3,8 +3,6 @@ import Script from "next/script";
 
 import { requireShopifyEmbeddedSession } from "@/lib/shopify/session-layout";
 import { AppBridgeProvider } from "@/app/shopify/app-bridge-provider";
-import { get } from "http";
-import { getShopify } from "@/lib/shopify";
 
 const apiKey = process.env.NEXT_PUBLIC_SHOPIFY_API_KEY ?? "";
 
@@ -18,9 +16,7 @@ export default async function ShopifySegmentLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
- const shopify = getShopify();
-  const shopifySession = await requireShopifyEmbeddedSession();
+  await requireShopifyEmbeddedSession();
 
   return (
     <>
