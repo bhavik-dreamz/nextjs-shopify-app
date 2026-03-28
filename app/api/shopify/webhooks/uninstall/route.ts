@@ -1,9 +1,6 @@
 import { authenticateShopifyWebhook } from "@/lib/shopify/authenticate/webhook";
 import { shopifySessionStorage } from "@/lib/shopify";
 
-/**
- * Dedicated APP_UNINSTALLED webhook endpoint.
- */
 export async function POST(request: Request) {
   const outcome = await authenticateShopifyWebhook(request);
   if (outcome instanceof Response) {
@@ -11,7 +8,7 @@ export async function POST(request: Request) {
   }
 
   if (outcome.topic !== "APP_UNINSTALLED") {
-    return new Response(null, { status: 200 });
+    return new Response("Ignored", { status: 200 });
   }
 
   try {

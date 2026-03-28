@@ -1,9 +1,11 @@
 import "@shopify/shopify-api/adapters/web-api";
 
 import { shopifyApi, ApiVersion } from "@shopify/shopify-api";
-import type { Shopify } from "@shopify/shopify-api";
+import type { Session, Shopify } from "@shopify/shopify-api";
 import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memory";
 import PrismaSessionStorage from "./shopify/session-storage-prisma";
+
+export const apiVersion = ApiVersion.January26;
 
 const globalForShopify = globalThis as typeof globalThis & {
   shopifySessionStorage?: MemorySessionStorage | PrismaSessionStorage;
@@ -38,7 +40,7 @@ function getShopifyConfig() {
   return {
     apiKey,
     apiSecretKey,
-    apiVersion: ApiVersion.January26,
+    apiVersion,
     scopes,
     hostName: url.host,
     hostScheme: (url.protocol.replace(":", "") === "http" ? "http" : "https") as
@@ -54,3 +56,28 @@ export function getShopify(): Shopify {
   }
   return globalForShopify.shopifyInstance;
 }
+
+// Remix-like convenience exports for server code in this Next.js app.
+export const sessionStorage = shopifySessionStorage;
+
+export async function registerWebhooks(session: Session) {
+  return getShopify().webhooks.register({ session });
+}
+
+export function login(options: {
+  request: Request;
+  shop: string;
+  callbackPath?: string;
+  isOnline?: boolean;
+}) {
+  const { request, shop, callbackPath = "/api/shopify/auth/callback", isOnline = false } =
+    options;
+  return getShopify().auth.begin({
+    rawRequest: request,
+    shop,
+    callbackPath,
+    isOnline,
+  });
+}
+
+export default getShopify;
