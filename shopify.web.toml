@@ -1,0 +1,12 @@
+# Web process for Shopify CLI (single Next.js server = frontend + admin API).
+# https://shopify.dev/docs/apps/build/cli-for-apps/app-structure
+
+roles = ["frontend", "backend"]
+
+auth_callback_path = ["/api/shopify/auth/callback"]
+
+webhooks_path = "/api/shopify/webhooks"
+
+[commands]
+dev = "npm run dev"
+build = "npm run build"

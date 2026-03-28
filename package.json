@@ -1,7 +1,27 @@
 {
   "name": "nextjs-shopify-app",
   "version": "0.1.0",
+  "description": "A Next.js Shopify embedded app with Admin API integration, GraphQL support, and OAuth authentication.",
   "private": true,
+  "author": {
+    "name": "Bhavik",
+    "url": "https://github.com/bhavik-dreamz"
+  },
+  "homepage": "https://github.com/bhavik-dreamz/nextjs-shopify-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhavik-dreamz/nextjs-shopify-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bhavik-dreamz/nextjs-shopify-app/issues"
+  },
+  "keywords": [
+    "shopify",
+    "nextjs",
+    "shopify-app",
+    "graphql",
+    "typescript"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +29,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@shopify/app-bridge-react": "^4.2.10",
+    "@shopify/shopify-api": "^13.0.0",
+    "@shopify/shopify-app-session-storage-memory": "^6.0.0",
     "next": "16.2.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
