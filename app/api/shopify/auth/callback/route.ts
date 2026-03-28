@@ -14,6 +14,14 @@ export async function GET(request: Request) {
     });
     await shopifySessionStorage.storeSession(session);
 
+    // Register webhooks after OAuth (equivalent to Remix afterAuth hook)
+    try {
+      await shopify.webhooks.register({ session });
+    } catch (webhookErr) {
+      // Non-fatal — log and continue so the merchant isn't blocked
+      console.error("[shopify] Webhook registration failed:", webhookErr);
+    }
+
     const url = new URL(request.url);
     const hostParam = url.searchParams.get("host");
     const shopParam = url.searchParams.get("shop");
