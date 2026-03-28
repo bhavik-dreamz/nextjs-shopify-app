@@ -6,7 +6,7 @@ import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memor
 import PrismaSessionStorage from "./shopify/session-storage-prisma";
 
 const globalForShopify = globalThis as typeof globalThis & {
-  shopifySessionStorage?: MemorySessionStorage;
+  shopifySessionStorage?: MemorySessionStorage | PrismaSessionStorage;
   shopifyInstance?: Shopify;
 };
 

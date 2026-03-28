@@ -5,7 +5,7 @@ import { getShopify, shopifySessionStorage } from "@/lib/shopify";
 export async function loadOfflineSession(shop: string): Promise<Session | null> {
   const shopify = getShopify();
   const id = shopify.session.getOfflineId(shop);
-  const session = await shopifySessionStorage.loadSession(id);
+  const session = (await shopifySessionStorage.loadSession(id)) as unknown as Session | null;
   if (!session?.accessToken) {
     return null;
   }
