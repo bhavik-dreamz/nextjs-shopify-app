@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 export default function Page() {
   return (
     <main className="mx-auto max-w-3xl p-8 font-sans">

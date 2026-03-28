@@ -39,6 +39,8 @@ export async function authenticateShopifyWebhook(
     rawBody,
   });
 
+  
+
   if (!result.valid) {
     return new Response("Invalid webhook", { status: 401 });
   }

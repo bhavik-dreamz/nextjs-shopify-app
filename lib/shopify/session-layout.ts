@@ -6,7 +6,7 @@ import {
   SHOPIFY_FORWARD_HOST_HEADER,
   SHOPIFY_FORWARD_SHOP_HEADER,
 } from "@/lib/shopify/guards";
-import { shopifySessionStorage } from "@/lib/shopify";
+import { getShopify, shopifySessionStorage } from "@/lib/shopify";
 
 /**
  * Embedded **web pages** under `/shopify/*`: offline session + OAuth redirect.
@@ -16,9 +16,16 @@ export async function requireShopifyEmbeddedSession() {
   const h = await headers();
   const shop = h.get(SHOPIFY_FORWARD_SHOP_HEADER);
   const host = h.get(SHOPIFY_FORWARD_HOST_HEADER);
+  const fetchDest = h.get("sec-fetch-dest");
 
   if (!shop || !host) {
     redirect("/");
+  }
+
+  // If opened directly in a browser tab, jump to Shopify Admin embedded view.
+  if (fetchDest !== "iframe") {
+    const embeddedAppUrl = getShopify().auth.buildEmbeddedAppUrl(host);
+    redirect(embeddedAppUrl);
   }
 
   const sessions = await shopifySessionStorage.findSessionsByShop(shop);
