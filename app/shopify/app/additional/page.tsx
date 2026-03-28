@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, Page, Layout, Text, BlockStack } from "@shopify/polaris";
 
 export default function AdditionalPage() {
