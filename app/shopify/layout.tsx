@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 import { requireShopifyEmbeddedSession } from "@/lib/shopify/session-layout";
+import { AppBridgeProvider } from "@/app/shopify/app-bridge-provider";
 
 const apiKey = process.env.NEXT_PUBLIC_SHOPIFY_API_KEY ?? "";
 
@@ -19,11 +20,14 @@ export default async function ShopifySegmentLayout({
 
   return (
     <>
+      {/* App Bridge script — must load before React hydration */}
       <Script
         src="https://cdn.shopify.com/shopifycloud/app-bridge.js"
         strategy="beforeInteractive"
       />
-      {children}
+      <AppBridgeProvider>
+        {children}
+      </AppBridgeProvider>
     </>
   );
 }
