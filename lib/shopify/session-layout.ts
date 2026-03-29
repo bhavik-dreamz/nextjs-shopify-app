@@ -28,7 +28,7 @@ export async function requireShopifyEmbeddedSession() {
     redirect(embeddedAppUrl);
   }
 
-  let offline: { accessToken: string | null } | undefined;
+  let offline: unknown;
   try {
     const sessions = await shopifySessionStorage.findSessionsByShop(shop);
     offline = sessions.find((s: any) => !s.isOnline && s.accessToken);
