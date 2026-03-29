@@ -17,10 +17,10 @@ export function AppBridgeProvider({
   return (
     <>
       <NavMenu>
-        <a href="/shopify/app" rel="home">
+        <a href="/shopify" rel="home">
           Home
         </a>
-        <a href="/shopify/app/additional">Additional page</a>
+        <a href="/shopify/additional">Additional page</a>
       </NavMenu>
       {children}
     </>

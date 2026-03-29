@@ -3,7 +3,7 @@
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { useState } from "react";
 
-import { createTestProductAction } from "@/app/shopify/app/actions";
+import { createTestProductAction } from "@/app/shopify/actions";
 
 export function CreateProductButton() {
   const shopify = useAppBridge();
