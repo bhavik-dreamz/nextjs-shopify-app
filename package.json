@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "predev": "npx prisma generate",
-    "dev": "next dev",
+    "dev": "npx prisma migrate deploy && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
