@@ -28,8 +28,15 @@ export async function requireShopifyEmbeddedSession() {
     redirect(embeddedAppUrl);
   }
 
-  const sessions = await shopifySessionStorage.findSessionsByShop(shop);
-  const offline = sessions.find((s: any) => !s.isOnline && s.accessToken);
+  let offline: { accessToken: string | null } | undefined;
+  try {
+    const sessions = await shopifySessionStorage.findSessionsByShop(shop);
+    offline = sessions.find((s: any) => !s.isOnline && s.accessToken);
+  } catch (err) {
+    // DB unavailable (e.g. DATABASE_URL not set, migrations not run).
+    // Treat as "no session" and start OAuth so the user isn't stuck on 500.
+    console.error("[shopify] session lookup failed, redirecting to auth:", err);
+  }
   if (!offline) {
     // Redirect via the exit-iframe route so OAuth starts at the top-level
     // frame, not inside the Shopify Admin iframe. This is required because
